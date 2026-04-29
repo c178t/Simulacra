@@ -1,8 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Search, Sparkles, ChevronDown, Orbit } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ArrowLeft, Orbit } from "lucide-react";
+import { useState } from "react";
 
 type Film = {
   title: string;
@@ -191,7 +191,6 @@ const films: Film[] = [
   },
 ];
 
-const categories = ["All Categories", "Animation", "Drama", "Mystery", "Sci-Fi", "Thriller"];
 const aboutSections = [
   {
     title: "Historical Overview",
@@ -214,46 +213,17 @@ const aboutSections = [
 ];
 
 export default function Home() {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All Categories");
-  const [expandedFilm, setExpandedFilm] = useState<string | null>(null);
-  const [isPreviewLocked, setIsPreviewLocked] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
   const [view, setView] = useState<"about" | "films">("films");
-
-  const visibleFilms = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-
-    return films.filter((film) => {
-      const categoryMatch =
-        category === "All Categories" || film.categories.includes(category);
-      const searchable =
-        `${film.title} ${film.year} ${film.duration} ${film.categories.join(" ")} ${film.synopsis}`.toLowerCase();
-      return categoryMatch && searchable.includes(normalizedQuery);
-    });
-  }, [category, query]);
-
-  const previewFilm = (title: string) => {
-    if (isPreviewLocked || expandedFilm === title) {
-      return;
-    }
-
-    setExpandedFilm(title);
-    setIsPreviewLocked(true);
-  };
 
   const showFilms = () => {
     setView("films");
     setSelectedFilm(null);
-    setExpandedFilm(null);
-    setIsPreviewLocked(false);
   };
 
   const showAbout = () => {
     setView("about");
     setSelectedFilm(null);
-    setExpandedFilm(null);
-    setIsPreviewLocked(false);
   };
 
   return (
@@ -319,8 +289,6 @@ export default function Home() {
               film={selectedFilm}
               onBack={() => {
                 setSelectedFilm(null);
-                setExpandedFilm(null);
-                setIsPreviewLocked(false);
               }}
             />
           ) : view === "about" ? (
@@ -348,84 +316,22 @@ export default function Home() {
                   </p>
                 </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col gap-6 sm:items-end"
-                >
-                  <label className="glass-control flex h-14 w-full items-center gap-3 px-5 sm:w-[284px]">
-                    <Search className="h-5 w-5 shrink-0 text-white/86" strokeWidth={1.8} />
-                    <input
-                      value={query}
-                      onChange={(event) => setQuery(event.target.value)}
-                      placeholder="Search films..."
-                      className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/42"
-                      aria-label="Search films"
-                    />
-                  </label>
-
-                  <div className="flex w-full items-center gap-4 sm:w-auto">
-                    <label className="glass-control relative h-12 flex-1 sm:w-[214px] sm:flex-none">
-                      <select
-                        value={category}
-                        onChange={(event) => setCategory(event.target.value)}
-                        className="h-full w-full appearance-none bg-transparent px-5 pr-11 text-sm font-medium text-white outline-none"
-                        aria-label="Filter by category"
-                      >
-                        {categories.map((item) => (
-                          <option key={item} value={item} className="bg-[#101414] text-white">
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/82" />
-                    </label>
-                    <button className="glass-button h-12 w-12 shrink-0" type="button" aria-label="Festival highlights">
-                      <Sparkles className="h-5 w-5" strokeWidth={1.8} />
-                    </button>
-                  </div>
-                </motion.div>
               </div>
 
               <motion.div
-                layout
                 className="mt-14 grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3"
-                onMouseLeave={() => {
-                  setExpandedFilm(null);
-                  setIsPreviewLocked(false);
-                }}
-                onBlur={(event) => {
-                  if (!event.currentTarget.contains(event.relatedTarget)) {
-                    setExpandedFilm(null);
-                    setIsPreviewLocked(false);
-                  }
-                }}
               >
                 <AnimatePresence mode="popLayout">
-                  {visibleFilms.map((film, index) => (
+                  {films.map((film, index) => (
                     <FilmCard
                       key={film.title}
                       film={film}
                       index={index}
-                      isExpanded={expandedFilm === film.title}
-                      onPreview={() => previewFilm(film.title)}
-                      onPreviewSettled={() => setIsPreviewLocked(false)}
                       onSelect={() => setSelectedFilm(film)}
                     />
                   ))}
                 </AnimatePresence>
               </motion.div>
-
-              {visibleFilms.length === 0 ? (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mt-12 rounded-[28px] border border-white/12 bg-white/[0.05] p-8 text-center text-white/60 backdrop-blur-2xl"
-                >
-                  No placeholder films match this search.
-                </motion.p>
-              ) : null}
             </motion.div>
           )}
         </AnimatePresence>
@@ -504,16 +410,10 @@ function AboutScreen() {
 function FilmCard({
   film,
   index,
-  isExpanded,
-  onPreview,
-  onPreviewSettled,
   onSelect,
 }: {
   film: Film;
   index: number;
-  isExpanded: boolean;
-  onPreview: () => void;
-  onPreviewSettled: () => void;
   onSelect: () => void;
 }) {
   return (
@@ -523,18 +423,10 @@ function FilmCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.98 }}
       transition={{
-        layout: { duration: 1.15, ease: [0.16, 1, 0.3, 1] },
         opacity: { duration: 0.55, delay: index * 0.05 },
         y: { duration: 0.9, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] },
         scale: { duration: 0.9, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] },
       }}
-      onLayoutAnimationComplete={() => {
-        if (isExpanded) {
-          onPreviewSettled();
-        }
-      }}
-      onMouseEnter={onPreview}
-      onFocus={onPreview}
       onClick={onSelect}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -542,63 +434,31 @@ function FilmCard({
           onSelect();
         }
       }}
-      className={`film-card group ${isExpanded ? "film-card-expanded md:col-span-2" : ""}`}
+      className="film-card group"
       tabIndex={0}
       role="button"
     >
-      <div
-        className={`relative grid gap-0 ${
-          isExpanded ? "md:grid-cols-[minmax(260px,1.18fr)_minmax(250px,0.82fr)] md:items-stretch" : ""
-        }`}
-      >
+      <div className="relative grid gap-0">
         <motion.div
-          layout
-          className={`film-visual-frame relative overflow-hidden border-white/10 ${
-            isExpanded ? "m-4 aspect-[16/9] rounded-[18px] border md:m-7" : "aspect-[16/7.6] border-b"
-          }`}
+          className="film-visual-frame relative aspect-[16/7.6] overflow-hidden border-b border-white/10"
         >
           <PlaceholderVisual film={film} />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.24),transparent_32%),linear-gradient(to_top,rgba(2,4,4,0.78),transparent_42%)]" />
         </motion.div>
 
         <motion.div
-          layout
-          className={`relative flex items-end justify-between gap-4 ${
-            isExpanded ? "px-6 pb-7 pt-0 md:min-h-[250px] md:flex-col md:items-start md:justify-center md:px-0 md:py-8 md:pr-8" : "px-6 py-5 sm:px-7"
-          }`}
+          className="relative px-6 py-5 sm:px-7"
         >
           <div className="min-w-0">
             <h2 className="truncate text-xl font-medium tracking-normal text-white sm:text-2xl">
               {film.title}
             </h2>
             <p className="mt-3 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/58 sm:text-base">
-              <span>{isExpanded ? film.year : film.duration}</span>
+              <span>{film.duration}</span>
               <span className="h-1.5 w-1.5 rounded-full bg-white/90" />
               <span className="truncate">{film.categories.join(", ")}</span>
             </p>
-
-            <AnimatePresence initial={false}>
-              {isExpanded ? (
-                <motion.div
-                  key="preview-copy"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.24, ease: "easeOut" }}
-                  className="mt-6 hidden md:block"
-                >
-                  <div className="mb-5 h-px w-full bg-gradient-to-r from-white/24 via-white/14 to-transparent" />
-                  <p className="max-w-[34ch] text-base leading-7 text-white/62">
-                    {film.synopsis}
-                  </p>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
           </div>
-
-          <button className="glass-button h-12 w-12 shrink-0 text-white/90 transition group-hover:border-white/24 group-hover:bg-white/[0.12]" type="button" aria-label={`Open ${film.title}`} onClick={onSelect}>
-            <Sparkles className="h-5 w-5" strokeWidth={1.9} />
-          </button>
         </motion.div>
       </div>
     </motion.article>
