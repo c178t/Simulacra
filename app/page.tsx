@@ -192,6 +192,26 @@ const films: Film[] = [
 ];
 
 const categories = ["All Categories", "Animation", "Drama", "Mystery", "Sci-Fi", "Thriller"];
+const aboutSections = [
+  {
+    title: "Historical Overview",
+    body: "Science fiction has captivated audiences for over a century, evolving from early literary visions of the future to a global cinematic force. From Metropolis to Blade Runner and beyond, sci-fi has continuously reimagined our world and what lies beyond it.",
+    visual: "about-city",
+    glyph: "timeline",
+  },
+  {
+    title: "Defining Characteristics",
+    body: "Sci-fi explores speculative concepts such as space exploration, artificial intelligence, time travel, alternate realities, and dystopian futures. It blends imaginative storytelling with scientific possibilities to challenge perception and inspire wonder.",
+    visual: "about-cube",
+    glyph: "poly",
+  },
+  {
+    title: "Cultural Significance",
+    body: "Science fiction reflects our hopes, fears, and the rapidly changing world around us. It serves as a mirror and a map, questioning our choices today while envisioning the possibilities of tomorrow.",
+    visual: "about-dome",
+    glyph: "signal",
+  },
+];
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -199,6 +219,7 @@ export default function Home() {
   const [expandedFilm, setExpandedFilm] = useState<string | null>(null);
   const [isPreviewLocked, setIsPreviewLocked] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
+  const [view, setView] = useState<"about" | "films">("films");
 
   const visibleFilms = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -221,6 +242,20 @@ export default function Home() {
     setIsPreviewLocked(true);
   };
 
+  const showFilms = () => {
+    setView("films");
+    setSelectedFilm(null);
+    setExpandedFilm(null);
+    setIsPreviewLocked(false);
+  };
+
+  const showAbout = () => {
+    setView("about");
+    setSelectedFilm(null);
+    setExpandedFilm(null);
+    setIsPreviewLocked(false);
+  };
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#030505] text-white">
       <div className="fixed inset-0 -z-10">
@@ -236,7 +271,7 @@ export default function Home() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-5 py-4 sm:px-9 lg:px-12"
       >
-        <a className="group flex min-w-0 items-center gap-3" href="#" aria-label="Simulacra Film Festival">
+        <button className="group flex min-w-0 items-center gap-3" type="button" onClick={showFilms} aria-label="Simulacra Film Festival">
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] shadow-glass-soft backdrop-blur-xl">
             <Orbit className="h-7 w-7 text-white/80 transition-transform duration-500 group-hover:rotate-45" strokeWidth={1.35} />
           </span>
@@ -248,19 +283,35 @@ export default function Home() {
               Film Festival
             </span>
           </span>
-        </a>
+        </button>
 
         <nav className="glass-pill absolute left-1/2 top-4 flex -translate-x-1/2 items-center gap-1 p-1">
-          <a className="rounded-full px-7 py-3 text-sm font-medium text-white/86 transition hover:text-white" href="#about">
+          <button
+            className={`rounded-full px-7 py-3 text-sm font-medium transition hover:text-white ${
+              view === "about" && !selectedFilm
+                ? "bg-white/[0.08] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.14)]"
+                : "text-white/86"
+            }`}
+            type="button"
+            onClick={showAbout}
+          >
             About
-          </a>
-          <a className="rounded-full bg-white/[0.08] px-8 py-3 text-sm font-medium text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.14)]" href="#films">
+          </button>
+          <button
+            className={`rounded-full px-8 py-3 text-sm font-medium transition hover:text-white ${
+              view === "films" || selectedFilm
+                ? "bg-white/[0.08] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.14)]"
+                : "text-white/86"
+            }`}
+            type="button"
+            onClick={showFilms}
+          >
             Films
-          </a>
+          </button>
         </nav>
       </motion.header>
 
-      <section id="films" className="mx-auto w-full max-w-[1500px] px-5 pb-12 pt-10 sm:px-9 sm:pt-16 lg:px-12">
+      <section id={view} className="mx-auto w-full max-w-[1500px] px-5 pb-12 pt-10 sm:px-9 sm:pt-16 lg:px-12">
         <AnimatePresence mode="wait">
           {selectedFilm ? (
             <FilmDetail
@@ -272,6 +323,8 @@ export default function Home() {
                 setIsPreviewLocked(false);
               }}
             />
+          ) : view === "about" ? (
+            <AboutScreen key="about" />
           ) : (
             <motion.div
               key="films-list"
@@ -378,6 +431,73 @@ export default function Home() {
         </AnimatePresence>
       </section>
     </main>
+  );
+}
+
+function AboutScreen() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -18 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="about-screen"
+    >
+      <section className="about-hero">
+        <div className="about-hero-copy">
+          <h1>About</h1>
+          <p>
+            Simulacra Film Festival celebrates the boundless imagination of sci-fi cinema, where technology meets humanity and the future mirrors our present.
+          </p>
+        </div>
+        <div className="about-portal-scene" aria-hidden="true">
+          <div className="about-portal-ring" />
+          <div className="about-portal-figure" />
+        </div>
+      </section>
+
+      <section className="about-logo-stage" aria-label="Simulacra Film Festival">
+        <div className="simulacra-emblem-large" aria-hidden="true">
+          <span className="laurel laurel-left" />
+          <span className="emblem-globe" />
+          <span className="laurel laurel-right" />
+        </div>
+        <h2>Simulacra</h2>
+        <p className="about-logo-subtitle">Film Festival</p>
+        <p className="about-logo-copy">
+          A festival dedicated to science fiction in all its forms, exploring distant worlds, advanced technologies, and the timeless questions of what it means to be human.
+        </p>
+      </section>
+
+      <section className="about-section-list" aria-label="About science fiction">
+        {aboutSections.map((section, index) => (
+          <motion.article
+            key={section.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="about-info-card"
+          >
+            <div className={`about-glyph about-glyph-${section.glyph}`} aria-hidden="true">
+              <span />
+            </div>
+            <div className="about-info-copy">
+              <h3>{section.title}</h3>
+              <p>{section.body}</p>
+            </div>
+            <div className={`about-card-visual ${section.visual}`} aria-hidden="true" />
+          </motion.article>
+        ))}
+      </section>
+
+      <p className="about-closing">
+        Simulacra Film Festival is more than a celebration of films. It is a portal to infinite worlds of thought, imagination, and discovery.
+      </p>
+      <div className="about-finale-mark" aria-hidden="true">
+        <span />
+      </div>
+    </motion.div>
   );
 }
 
