@@ -1,10 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Orbit } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { useState, type ReactNode } from "react";
 
 type Film = {
+  slug: string;
   title: string;
   year: string;
   duration: string;
@@ -22,6 +23,7 @@ type Film = {
 
 const films: Film[] = [
   {
+    slug: "cortex",
     title: "Cortex",
     year: "2024",
     duration: "24 min",
@@ -43,6 +45,7 @@ const films: Film[] = [
     accent: "rgba(163, 224, 255, 0.72)",
   },
   {
+    slug: "quant",
     title: "Quant",
     year: "2023",
     duration: "19 min",
@@ -64,6 +67,7 @@ const films: Film[] = [
     accent: "rgba(226, 237, 241, 0.64)",
   },
   {
+    slug: "aelf",
     title: "Aelf",
     year: "2024",
     duration: "15 min",
@@ -85,6 +89,7 @@ const films: Film[] = [
     accent: "rgba(204, 255, 234, 0.62)",
   },
   {
+    slug: "meeton",
     title: "Meeton",
     year: "2022",
     duration: "22 min",
@@ -106,6 +111,7 @@ const films: Film[] = [
     accent: "rgba(196, 238, 224, 0.58)",
   },
   {
+    slug: "nexus",
     title: "Nexus",
     year: "2023",
     duration: "18 min",
@@ -127,6 +133,7 @@ const films: Film[] = [
     accent: "rgba(191, 245, 255, 0.68)",
   },
   {
+    slug: "solitude-protocol",
     title: "Solitude Protocol",
     year: "2024",
     duration: "26 min",
@@ -148,6 +155,7 @@ const films: Film[] = [
     accent: "rgba(179, 229, 255, 0.62)",
   },
   {
+    slug: "afterimage-loop",
     title: "Afterimage Loop",
     year: "2025",
     duration: "21 min",
@@ -169,6 +177,7 @@ const films: Film[] = [
     accent: "rgba(219, 238, 255, 0.66)",
   },
   {
+    slug: "the-ninth-render",
     title: "The Ninth Render",
     year: "2023",
     duration: "17 min",
@@ -241,18 +250,8 @@ export default function Home() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-5 py-4 sm:px-9 lg:px-12"
       >
-        <button className="group flex min-w-0 items-center gap-3" type="button" onClick={showFilms} aria-label="Simulacra Film Festival">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] shadow-glass-soft backdrop-blur-xl">
-            <Orbit className="h-7 w-7 text-white/80 transition-transform duration-500 group-hover:rotate-45" strokeWidth={1.35} />
-          </span>
-          <span className="hidden leading-none sm:block">
-            <span className="block text-[13px] font-medium uppercase tracking-[0.52em] text-white/85">
-              Simulacra
-            </span>
-            <span className="mt-2 block text-[9px] font-medium uppercase tracking-[0.58em] text-white/50">
-              Film Festival
-            </span>
-          </span>
+        <button className="group min-w-0" type="button" onClick={showFilms} aria-label="Simulacra Film Festival">
+          <SimulacraLogo variant="header" />
         </button>
 
         <nav className="glass-pill absolute left-1/2 top-4 flex -translate-x-1/2 items-center gap-1 p-1">
@@ -363,13 +362,7 @@ function AboutScreen() {
       </section>
 
       <section className="about-logo-stage" aria-label="Simulacra Film Festival">
-        <div className="simulacra-emblem-large" aria-hidden="true">
-          <span className="laurel laurel-left" />
-          <span className="emblem-globe" />
-          <span className="laurel laurel-right" />
-        </div>
-        <h2>Simulacra</h2>
-        <p className="about-logo-subtitle">Film Festival</p>
+        <SimulacraLogo variant="about" />
         <p className="about-logo-copy">
           A festival dedicated to science fiction in all its forms, exploring distant worlds, advanced technologies, and the timeless questions of what it means to be human.
         </p>
@@ -404,6 +397,63 @@ function AboutScreen() {
         <span />
       </div>
     </motion.div>
+  );
+}
+
+function SimulacraLogo({ variant }: { variant: "header" | "about" }) {
+  return (
+    <div className={`simulacra-logo simulacra-logo-${variant}`}>
+      <AssetImage
+        src="/assets/logo/simulacra-logo.png"
+        alt="Simulacra Film Festival"
+        className="simulacra-logo-image"
+        fallback={
+          <>
+            <div className="simulacra-mark" aria-hidden="true">
+              <span className="logo-laurel logo-laurel-left" />
+              <span className="logo-orb">
+                <span className="logo-orb-left" />
+                <span className="logo-orb-grid" />
+                <span className="logo-orb-pixels" />
+              </span>
+              <span className="logo-laurel logo-laurel-right" />
+            </div>
+            <div className="simulacra-wordmark">
+              <span>Simulacra</span>
+              <small>Film Festival</small>
+            </div>
+          </>
+        }
+      />
+    </div>
+  );
+}
+
+function AssetImage({
+  src,
+  alt,
+  className,
+  fallback,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  fallback: ReactNode;
+}) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return fallback;
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      onError={() => setHasError(true)}
+    />
   );
 }
 
@@ -442,8 +492,13 @@ function FilmCard({
         <motion.div
           className="film-visual-frame relative aspect-[16/7.6] overflow-hidden border-b border-white/10"
         >
-          <PlaceholderVisual film={film} />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.24),transparent_32%),linear-gradient(to_top,rgba(2,4,4,0.78),transparent_42%)]" />
+          <AssetImage
+            src={`/assets/films/${film.slug}/cover.jpg`}
+            alt={`${film.title} cover`}
+            className="asset-fill"
+            fallback={<PlaceholderVisual film={film} />}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.24),transparent_32%),linear-gradient(to_top,rgba(2,4,4,0.78),transparent_42%)]" />
         </motion.div>
 
         <motion.div
@@ -481,8 +536,13 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:gap-11">
         <div className="min-w-0">
           <div className="film-detail-hero">
-            <PlaceholderVisual film={film} />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.18),transparent_28%),linear-gradient(to_top,rgba(1,3,3,0.64),transparent_48%)]" />
+            <AssetImage
+              src={`/assets/films/${film.slug}/hero.jpg`}
+              alt={`${film.title} still`}
+              className="asset-fill"
+              fallback={<PlaceholderVisual film={film} />}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.18),transparent_28%),linear-gradient(to_top,rgba(1,3,3,0.64),transparent_48%)]" />
           </div>
 
           <div className="mt-8">
@@ -527,9 +587,18 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
 
         <aside className="film-info-panel">
           <div className="director-portrait">
-            <div className="director-halo" />
-            <div className="director-head" />
-            <div className="director-body" />
+            <AssetImage
+              src={`/assets/films/${film.slug}/director.jpg`}
+              alt={`${film.director}, director of ${film.title}`}
+              className="asset-fill"
+              fallback={
+                <>
+                  <div className="director-halo" />
+                  <div className="director-head" />
+                  <div className="director-body" />
+                </>
+              }
+            />
           </div>
 
           <div className="mt-6">

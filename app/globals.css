@@ -246,6 +246,203 @@ button {
   text-align: center;
 }
 
+.asset-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.simulacra-logo {
+  --logo-scale: 1;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.simulacra-logo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.simulacra-logo-about {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.simulacra-logo-image {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.simulacra-logo-header .simulacra-logo-image {
+  height: 200px;
+  max-width: 560px;
+}
+
+.simulacra-logo-about .simulacra-logo-image {
+  width: min(620px, 92vw);
+  height: auto;
+}
+
+.simulacra-mark {
+  position: relative;
+  width: calc(300px * var(--logo-scale));
+  height: calc(210px * var(--logo-scale));
+  flex: 0 0 auto;
+}
+
+.simulacra-logo-header .simulacra-mark {
+  --logo-scale: 0.48;
+}
+
+.simulacra-logo-about .simulacra-mark {
+  --logo-scale: 1;
+}
+
+.logo-orb {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: calc(116px * var(--logo-scale));
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.logo-orb-left {
+  position: absolute;
+  inset: 0 50% 0 0;
+  border: calc(3px * var(--logo-scale)) solid rgba(255, 255, 255, 0.92);
+  border-right: 0;
+  border-radius: 999px 0 0 999px;
+}
+
+.logo-orb-grid {
+  position: absolute;
+  inset: 0 0 0 50%;
+  overflow: hidden;
+  border-radius: 0 999px 999px 0;
+  border: calc(2px * var(--logo-scale)) solid rgba(203, 255, 239, 0.82);
+  border-left: calc(3px * var(--logo-scale)) solid rgba(203, 255, 239, 0.92);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(15px * var(--logo-scale)), rgba(203, 255, 239, 0.72) calc(15px * var(--logo-scale)) calc(17px * var(--logo-scale))),
+    repeating-linear-gradient(0deg, transparent 0 calc(17px * var(--logo-scale)), rgba(203, 255, 239, 0.54) calc(17px * var(--logo-scale)) calc(19px * var(--logo-scale))),
+    radial-gradient(ellipse at 0% 50%, rgba(203, 255, 239, 0.16), transparent 72%);
+}
+
+.logo-orb-pixels {
+  position: absolute;
+  inset: 8% -58% 7% 52%;
+  background: radial-gradient(circle, rgba(203, 255, 239, 0.95) 0 calc(2px * var(--logo-scale)), transparent calc(2.4px * var(--logo-scale)));
+  background-size: calc(21px * var(--logo-scale)) calc(19px * var(--logo-scale));
+  mask-image: radial-gradient(ellipse at 0% 50%, black 0 46%, transparent 78%);
+  opacity: 0.9;
+}
+
+.logo-laurel {
+  position: absolute;
+  top: 51%;
+  width: calc(92px * var(--logo-scale));
+  height: calc(154px * var(--logo-scale));
+  border-style: solid;
+  border-color: rgba(211, 221, 191, 0.9);
+  border-radius: 50%;
+}
+
+.logo-laurel-left {
+  left: calc(22px * var(--logo-scale));
+  transform: translateY(-50%) rotate(-20deg);
+  border-width: 0 0 0 calc(4px * var(--logo-scale));
+}
+
+.logo-laurel-right {
+  right: calc(22px * var(--logo-scale));
+  transform: translateY(-50%) rotate(20deg);
+  border-width: 0 calc(4px * var(--logo-scale)) 0 0;
+}
+
+.logo-laurel::before,
+.logo-laurel::after {
+  content: "";
+  position: absolute;
+  width: calc(15px * var(--logo-scale));
+  height: calc(32px * var(--logo-scale));
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, rgba(225, 231, 207, 0.96), rgba(154, 165, 137, 0.78));
+  box-shadow:
+    calc(1px * var(--logo-scale)) calc(29px * var(--logo-scale)) 0 rgba(206, 216, 190, 0.88),
+    calc(8px * var(--logo-scale)) calc(59px * var(--logo-scale)) 0 rgba(206, 216, 190, 0.8),
+    calc(20px * var(--logo-scale)) calc(88px * var(--logo-scale)) 0 rgba(206, 216, 190, 0.72),
+    calc(38px * var(--logo-scale)) calc(113px * var(--logo-scale)) 0 rgba(206, 216, 190, 0.65);
+}
+
+.logo-laurel-left::before {
+  left: calc(4px * var(--logo-scale));
+  top: calc(8px * var(--logo-scale));
+  transform: rotate(26deg);
+}
+
+.logo-laurel-left::after {
+  left: calc(23px * var(--logo-scale));
+  top: calc(20px * var(--logo-scale));
+  transform: rotate(42deg);
+}
+
+.logo-laurel-right::before {
+  right: calc(4px * var(--logo-scale));
+  top: calc(8px * var(--logo-scale));
+  transform: scaleX(-1) rotate(26deg);
+}
+
+.logo-laurel-right::after {
+  right: calc(23px * var(--logo-scale));
+  top: calc(20px * var(--logo-scale));
+  transform: scaleX(-1) rotate(42deg);
+}
+
+.simulacra-wordmark span {
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.simulacra-wordmark small {
+  display: block;
+  margin-top: 0.7em;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(197, 245, 232, 0.82);
+}
+
+.simulacra-logo-header .simulacra-wordmark span {
+  font-size: 30px;
+  letter-spacing: 0.48em;
+}
+
+.simulacra-logo-header .simulacra-wordmark small {
+  font-size: 19px;
+  letter-spacing: 0.58em;
+}
+
+.simulacra-logo-about .simulacra-wordmark span {
+  margin-top: 0.1rem;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+}
+
+.simulacra-logo-about .simulacra-wordmark small {
+  font-size: clamp(1rem, 2vw, 1.55rem);
+  letter-spacing: 0.56em;
+  text-indent: 0.56em;
+}
+
 .simulacra-emblem-large {
   position: relative;
   height: 210px;
