@@ -9,194 +9,223 @@ type Film = {
   title: string;
   year: string;
   duration: string;
-  categories: string[];
   synopsis: string;
   why: string;
   funFacts: string[];
   director: string;
-  country: string;
-  flag: "iceland" | "japan" | "canada" | "france" | "brazil" | "india" | "kenya" | "norway";
-  awards: Array<"prism" | "sphere" | "ring">;
+  countries: Array<{ name: string; flag: string }>;
+  awards: Array<{
+    icon: "oscar" | "globe" | "bafta" | "saturn" | "bear" | "record" | "laurel" | "trophy" | "medal";
+    label: string;
+  }>;
   visual: string;
   accent: string;
 };
 
 const films: Film[] = [
   {
-    slug: "cortex",
-    title: "Cortex",
-    year: "2024",
-    duration: "24 min",
-    categories: ["Sci-Fi", "Mystery"],
+    slug: "welt-am-draht",
+    title: "Welt am Draht",
+    year: "1973",
+    duration: "212 min",
     synopsis:
-      "In a simulated future, a scientist discovers a glitch in reality that threatens to unravel the fabric of existence itself.",
+      "Fred Stiller is a cybernetics engineer who takes over a government-funded project after his predecessor mysteriously dies. Simulacron-1 is a supercomputer capable of hosting a virtual world populated by more than 9,000 conscious identity units who believe their reality is real. As Stiller investigates irregularities, colleagues vanish, records change, and his own reliability becomes unstable. The film unfolds through reflective surfaces, sterile offices, and long conversations as the systems built to explain his reality become harder to trust.",
     why:
-      "Cortex challenges our perception of reality and explores the consequences of playing god with technology through stark, visionary simulation imagery.",
+      "This film treats artificial reality as a philosophical problem rather than a gimmick. Fassbinder's deliberate European art-cinema approach gives the festival historical depth and a different rhythm from effect-heavy simulation films. It also introduces simulation as a system embedded inside corporate, scientific, and political structures, showing that questions about simulated existence were already deeply rooted in cinema before modern cyberspace imagery.",
     funFacts: [
-      "The triangular structure was inspired by theoretical models of light bending near black holes.",
-      "Over 600 VFX shots were used to create the simulated environments.",
-      "The score was generated using AI-assisted composition tools.",
+      "Fassbinder was notoriously prolific; he shot the 212-minute film on 16mm in just 44 days.",
     ],
-    director: "Lena Voss",
-    country: "Iceland",
-    flag: "iceland",
-    awards: ["prism", "sphere", "ring"],
-    visual: "triangle-gate",
-    accent: "rgba(163, 224, 255, 0.72)",
-  },
-  {
-    slug: "quant",
-    title: "Quant",
-    year: "2023",
-    duration: "19 min",
-    categories: ["Sci-Fi", "Thriller"],
-    synopsis:
-      "A suspended object above a dead valley becomes the proof of an experiment that remembers every choice its observers make.",
-    why:
-      "Quant compresses cosmic scale into a quiet psychological thriller about observation, memory, and the cost of measuring the unknowable.",
-    funFacts: [
-      "The cube was animated with procedural light maps instead of a traditional texture.",
-      "Most exterior shots were built from scanned volcanic terrain.",
-      "The sound team recorded server fans and bowed metal for the cube's presence.",
+    director: "Rainer Werner Fassbinder",
+    countries: [{ name: "West Germany", flag: "west-germany" }],
+    awards: [
+      { icon: "medal", label: "Grimme Award (1974): Honorable Mention for Rainer Werner Fassbinder" },
     ],
-    director: "Mara Chen",
-    country: "Japan",
-    flag: "japan",
-    awards: ["sphere", "ring", "prism"],
-    visual: "black-cube",
-    accent: "rgba(226, 237, 241, 0.64)",
-  },
-  {
-    slug: "aelf",
-    title: "Aelf",
-    year: "2024",
-    duration: "15 min",
-    categories: ["Animation", "Sci-Fi"],
-    synopsis:
-      "An artificial myth wakes inside a geometric sun and begins rewriting the memories of the machine that generated it.",
-    why:
-      "Aelf brings handmade animation language into a synthetic world, turning machine logic into something ritualistic and strange.",
-    funFacts: [
-      "Every frame was first blocked as a wire sculpture before being rendered digitally.",
-      "The glowing orb contains 1,024 animated connection points.",
-      "Its invented alphabet appears only for single-frame flashes.",
-    ],
-    director: "Orin Vale",
-    country: "Canada",
-    flag: "canada",
-    awards: ["ring", "sphere", "prism"],
     visual: "wire-orb",
-    accent: "rgba(204, 255, 234, 0.62)",
+    accent: "rgba(196, 238, 224, 0.72)",
   },
   {
-    slug: "meeton",
-    title: "Meeton",
-    year: "2022",
-    duration: "22 min",
-    categories: ["Sci-Fi", "Drama"],
+    slug: "tron",
+    title: "TRON",
+    year: "1982",
+    duration: "96 min",
     synopsis:
-      "A lonely archivist steps through a circular gate to meet the version of herself that survived a different timeline.",
+      "Kevin Flynn is a talented computer programmer and arcade game designer who is digitized and transported inside a computer system. In this electronic world, programs take humanoid forms and compete in combat challenges designed by the controlling Master Control Program. Flynn is mistaken for a program and forced to navigate glowing grids, geometric architecture, and stylized virtual combat. As he moves deeper through the system, the line between user and program becomes less clear.",
     why:
-      "Meeton gives the festival a human counterweight: an intimate drama about identity wrapped inside elegant portal science fiction.",
+      "TRON belongs in the festival because it is one of the earliest films to depict a digital simulation as a navigable space. It turns abstract computing processes into something tangible and visual, bridging early conceptual films and later virtual-reality cinema. Its emphasis on structure, rules, and control shaped future screen images of cyberspace.",
     funFacts: [
-      "The portal ring was built as a partial practical set for actor reflections.",
-      "Cloud movement was simulated from archival weather data.",
-      "The final scene uses the same camera move twice, one timeline apart.",
+      "The entire film was created using just 2MB of memory and 330MB of storage.",
     ],
-    director: "Iris Moreau",
-    country: "France",
-    flag: "france",
-    awards: ["sphere", "prism", "ring"],
-    visual: "portal-ring",
-    accent: "rgba(196, 238, 224, 0.58)",
-  },
-  {
-    slug: "nexus",
-    title: "Nexus",
-    year: "2023",
-    duration: "18 min",
-    categories: ["Sci-Fi", "Mystery"],
-    synopsis:
-      "In the corridor between two mirrored cities, a courier carries a message that can only be read by someone who does not exist.",
-    why:
-      "Nexus turns architecture into narrative, using a single impossible passage to ask what remains of a person after duplication.",
-    funFacts: [
-      "The corridor set was rendered from a six-meter miniature scan.",
-      "No shot uses a perfectly horizontal line.",
-      "The central doorway emits light based on the actor's distance from it.",
+    director: "Steven Lisberger",
+    countries: [{ name: "United States", flag: "usa" }],
+    awards: [
+      { icon: "saturn", label: "Saturn Awards (1983): Best Costumes for Elois Jenssen and Rosanna Norton" },
+      { icon: "record", label: "Guinness World Record (1982): First use of computer-generated animation in a feature film" },
+      { icon: "oscar", label: "Academy Scientific and Technical connection: Ken Perlin later won a 1997 Technical Achievement Award for Perlin Noise, first created for TRON" },
     ],
-    director: "Theo Kael",
-    country: "Norway",
-    flag: "norway",
-    awards: ["prism", "ring", "sphere"],
-    visual: "light-door",
-    accent: "rgba(191, 245, 255, 0.68)",
-  },
-  {
-    slug: "solitude-protocol",
-    title: "Solitude Protocol",
-    year: "2024",
-    duration: "26 min",
-    categories: ["Sci-Fi", "Thriller"],
-    synopsis:
-      "The final resident of a planetary simulation receives a maintenance signal from outside the sky.",
-    why:
-      "Solitude Protocol is a haunting study of isolation, using simulation collapse as a metaphor for grief and survival.",
-    funFacts: [
-      "The planetary dome is a single simulated atmosphere rendered at multiple time scales.",
-      "The lead actor performed against no green screen, only projected light.",
-      "Its radio signal motif repeats every 26 seconds.",
-    ],
-    director: "Rafa Silva",
-    country: "Brazil",
-    flag: "brazil",
-    awards: ["ring", "prism", "sphere"],
-    visual: "planet-dome",
-    accent: "rgba(179, 229, 255, 0.62)",
-  },
-  {
-    slug: "afterimage-loop",
-    title: "Afterimage Loop",
-    year: "2025",
-    duration: "21 min",
-    categories: ["Sci-Fi", "Drama"],
-    synopsis:
-      "A performer trapped in a rehearsal engine discovers that every failed take has continued living beyond the frame.",
-    why:
-      "Afterimage Loop captures the uncanny feeling of endless optimization and the emotional debris left behind by discarded versions.",
-    funFacts: [
-      "The script contains seven scenes that repeat with one changed object.",
-      "Motion blur was tuned manually to make each loop feel slightly unstable.",
-      "The final take was performed backward and reversed in edit.",
-    ],
-    director: "Naya Rao",
-    country: "India",
-    flag: "india",
-    awards: ["sphere", "prism", "ring"],
-    visual: "memory-wave",
-    accent: "rgba(219, 238, 255, 0.66)",
-  },
-  {
-    slug: "the-ninth-render",
-    title: "The Ninth Render",
-    year: "2023",
-    duration: "17 min",
-    categories: ["Animation", "Mystery"],
-    synopsis:
-      "Eight worlds collapse cleanly, but the ninth render develops weather, language, and an unsettling need to be watched.",
-    why:
-      "The Ninth Render is playful, eerie, and precise, making world-building itself the subject of the mystery.",
-    funFacts: [
-      "The grid world was generated from failed layout tests.",
-      "Its weather system was trained on corrupted satellite imagery.",
-      "The director hid nine tiny suns across the short.",
-    ],
-    director: "Amina Okoth",
-    country: "Kenya",
-    flag: "kenya",
-    awards: ["prism", "sphere", "ring"],
     visual: "render-grid",
-    accent: "rgba(199, 255, 235, 0.64)",
+    accent: "rgba(70, 235, 255, 0.66)",
+  },
+  {
+    slug: "kokaku-kidotai",
+    title: "Kōkaku Kidōtai (攻殻機動隊)",
+    year: "1995",
+    duration: "82 min",
+    synopsis:
+      "In a technologically advanced future, many humans have replaced parts of their bodies with cybernetic implants. Major Motoko Kusanagi is a cyborg security agent pursuing the Puppet Master, a mysterious hacker who can seize control of cybernetic bodies and overwrite memories. As Kusanagi investigates, she questions the boundaries between mind, body, and networked consciousness in a world where identity is no longer tied to one physical form.",
+    why:
+      "This film expands simulation beyond external environments and into identity itself. Rather than building a separate artificial world, it suggests that reality is already mediated through memory, bodies, and networks. Its restrained pacing, Japanese cyberpunk style, and animated form create an essential bridge between virtual-world stories and philosophical questions about consciousness.",
+    funFacts: [
+      "The production team traveled to a facility in Guam to shoot real firearms at different materials so they could accurately animate bullet impacts.",
+    ],
+    director: "Mamoru Oshii",
+    countries: [
+      { name: "Japan", flag: "japan" },
+      { name: "United Kingdom", flag: "uk" },
+    ],
+    awards: [
+      { icon: "laurel", label: "Yokohama Film Festival (1996): Best Screenplay for Kazunori Itô" },
+      { icon: "trophy", label: "World Animation Celebration (1997): Best Theatrical Feature Film and Best Director of Animation for Mamoru Oshii" },
+      { icon: "medal", label: "Fantasporto (1997): International Fantasy Film Award Special Mention for Mamoru Oshii" },
+    ],
+    visual: "memory-wave",
+    accent: "rgba(204, 255, 234, 0.66)",
+  },
+  {
+    slug: "the-truman-show",
+    title: "The Truman Show",
+    year: "1998",
+    duration: "103 min",
+    synopsis:
+      "Truman Burbank lives a seemingly ordinary life in a picturesque town surrounded by friends, coworkers, and routine. Small inconsistencies gradually disrupt that normalcy, leading him to question his environment. His life is revealed to be a controlled setting designed for constant observation, with hidden systems shaping his experiences and limiting his freedom. As Truman tests the boundaries of his world, the constructed experience begins to break.",
+    why:
+      "The Truman Show makes simulation science fiction accessible without relying on futuristic machinery. It shows that simulation can emerge from surveillance, media construction, performance, and social control. Its emotional grounding balances the more abstract films in the lineup and shows how a simulated reality can operate inside an everyday setting.",
+    funFacts: [
+      "Jim Carrey took a significant pay cut to play Truman, accepting $12 million instead of his then-standard $20 million to prove he could handle dramatic roles.",
+    ],
+    director: "Peter Weir",
+    countries: [{ name: "United States", flag: "usa" }],
+    awards: [
+      { icon: "globe", label: "Golden Globe Awards (1999): Best Actor Drama, Best Supporting Actor, and Best Original Score" },
+      { icon: "bafta", label: "BAFTA Awards (1999): Best Direction, Best Original Screenplay, and Best Production Design" },
+      { icon: "saturn", label: "Saturn Awards (1999): Best Fantasy Film and Best Writer" },
+      { icon: "laurel", label: "Hugo Awards (1999): Best Dramatic Presentation" },
+      { icon: "trophy", label: "MTV Movie Awards (1999): Best Male Performance for Jim Carrey" },
+      { icon: "medal", label: "National Board of Review (1998): Best Supporting Actor for Ed Harris" },
+      { icon: "laurel", label: "London Critics Circle Film Awards (1999): Director of the Year and Screenwriter of the Year" },
+      { icon: "trophy", label: "The film won over 30 awards globally" },
+    ],
+    visual: "portal-ring",
+    accent: "rgba(255, 235, 178, 0.66)",
+  },
+  {
+    slug: "the-matrix",
+    title: "The Matrix",
+    year: "1999",
+    duration: "136 min",
+    synopsis:
+      "Neo is a programmer who discovers that the world he inhabits is a sophisticated simulation created and maintained by machines. Humanity has lost a war against artificial intelligence and has become enslaved. Neo encounters people who know the illusion exists and joins an underground rebellion against the machines. Moving between the simulated environment and the reality outside it, he learns how perception can be controlled and how the system's enforcers can be fought.",
+    why:
+      "The Matrix is the most widely recognized simulation science-fiction film of the modern era. It sits between blockbuster spectacle and conceptual sci-fi, making it ideal for a program that values accessibility and intellectual force. Earlier films in the lineup build toward it, while later films respond to its core question: how is reality constructed?",
+    funFacts: [
+      "The iconic green digital rain was created by production designer Simon Whiteley using characters scanned from his wife's Japanese cookbooks.",
+    ],
+    director: "Lana Wachowski and Lilly Wachowski",
+    countries: [
+      { name: "United States", flag: "usa" },
+      { name: "Australia", flag: "australia" },
+    ],
+    awards: [
+      { icon: "oscar", label: "Academy Awards (2000): Best Film Editing, Best Sound, Best Sound Effects Editing, and Best Visual Effects" },
+      { icon: "bafta", label: "BAFTA Awards (2000): Best Sound and Best Achievement in Special Visual Effects" },
+      { icon: "saturn", label: "Saturn Awards (2000): Best Science Fiction Film and Best Director" },
+      { icon: "trophy", label: "MTV Movie Awards (2000): Best Movie, Best Male Performance, and Best Fight" },
+      { icon: "trophy", label: "Empire Awards (2000): Best Film and Best Debut for Carrie-Anne Moss" },
+      { icon: "medal", label: "Golden Reel Awards (2000): Best Sound Editing for Effects and Foley" },
+      { icon: "laurel", label: "National Film Registry (2012): Inducted as culturally, historically, or aesthetically significant" },
+    ],
+    visual: "light-door",
+    accent: "rgba(80, 255, 150, 0.68)",
+  },
+  {
+    slug: "existenz",
+    title: "eXistenZ",
+    year: "1999",
+    duration: "97 min",
+    synopsis:
+      "Allegra Geller is the world's most celebrated game designer, attacked by an assassin who believes virtual reality is deforming human existence. In this world, technology is organic and invasive: gamers use flesh-like game pods that connect directly to their nervous systems. Bodyguard Ted Pikul helps Allegra escape, and the two enter the game to determine whether her master pod was damaged. As they descend through layers of simulation, the boundary between physical reality and game reality dissolves.",
+    why:
+      "eXistenZ complicates the simulation theme through a visceral and grotesque lens. Released the same year as The Matrix, it focuses less on sleek digital control and more on the intersection of biology, technology, desire, and trust. Its nested layers of reality broaden the lineup and keep simulation from feeling repetitive.",
+    funFacts: [
+      "The film did poorly at the box office but later developed a cult following, and contemporary writing often treats it as an overlooked classic of body-horror virtual reality.",
+    ],
+    director: "David Cronenberg",
+    countries: [
+      { name: "Canada", flag: "canada" },
+      { name: "United Kingdom", flag: "uk" },
+      { name: "France", flag: "france" },
+    ],
+    awards: [
+      { icon: "bear", label: "Berlin International Film Festival (1999): Silver Bear for Outstanding Artistic Achievement" },
+      { icon: "trophy", label: "Amsterdam Fantastic Film Festival (1999): Silver Scream Award" },
+      { icon: "medal", label: "Genie Awards (2000): Best Achievement in Editing for Ronald Sanders" },
+      { icon: "laurel", label: "Sitges Catalonian International Film Festival: Best Screenplay for David Cronenberg" },
+    ],
+    visual: "black-cube",
+    accent: "rgba(255, 190, 154, 0.62)",
+  },
+  {
+    slug: "papurika",
+    title: "Papurika (パプリカ)",
+    year: "2006",
+    duration: "90 min",
+    synopsis:
+      "Scientists have developed the DC Mini, a device that allows therapists to enter and record patients' dreams. Dr. Atsuko Chiba secretly uses it as Paprika, a charismatic dream detective who provides therapy inside dreams. When the device is stolen before it can be regulated, it is used to invade minds while people are awake, forcing them into waking nightmares. The boundary between dreams and reality begins to dissolve and reshape the real world.",
+    why:
+      "Paprika pushes simulation science fiction into dreams rather than computer-generated space. It explores nested realities, false awakenings, and a shared simulation fueled by imagination and madness. Its animated form adds visual diversity while keeping the festival focused on mediated reality and unstable perception.",
+    funFacts: [
+      "Despite being a high-tech 2006 film, Susumu Hirasawa composed and sequenced the score using an Amiga 4000 computer.",
+    ],
+    director: "Satoshi Kon",
+    countries: [{ name: "Japan", flag: "japan" }],
+    awards: [
+      { icon: "trophy", label: "Tokyo Anime Awards (2007): Best Feature Film and Best Music" },
+      { icon: "trophy", label: "Newport Beach Film Festival (2007): Feature Film Award for Best Animation" },
+      { icon: "laurel", label: "Montréal Festival of New Cinema (2006): Public's Choice Award" },
+      { icon: "medal", label: "Fantasporto (2007): Critics' Choice Award for Satoshi Kon" },
+      { icon: "medal", label: "Chlotrudis Awards (2008): Best Design" },
+    ],
+    visual: "triangle-gate",
+    accent: "rgba(255, 122, 196, 0.64)",
+  },
+  {
+    slug: "avatar",
+    title: "Avatar",
+    year: "2009",
+    duration: "162 min",
+    synopsis:
+      "Humans explore Pandora, a lush and dangerous alien moon filled with bioluminescent flora, massive predators, and the Na'vi. They travel there to mine the valuable mineral unobtanium, but Pandora's atmosphere is toxic to humans. To survive and interact with the world, humans remotely control artificially created human-Na'vi hybrid bodies. As characters spend more time inside these avatar bodies, their sense of identity begins to shift.",
+    why:
+      "Avatar broadens simulation science fiction beyond screens and virtual worlds into bodily mediation. Its avatar system creates a biological simulation of alien experience, making simulation physical, sensory, and emotional. By emphasizing the connection between identity and physical form, it complements films that focus on perception, consciousness, and constructed reality.",
+    funFacts: [
+      "Sam Worthington was living in his car when he auditioned for Jake Sully.",
+      "Matt Damon was offered the role along with 10% of the profits, a decision later estimated to have cost him more than $600 million.",
+    ],
+    director: "James Cameron",
+    countries: [
+      { name: "United States", flag: "usa" },
+      { name: "United Kingdom", flag: "uk" },
+    ],
+    awards: [
+      { icon: "oscar", label: "Academy Awards (2010): Best Art Direction, Best Cinematography, and Best Visual Effects" },
+      { icon: "globe", label: "Golden Globe Awards (2010): Best Motion Picture Drama and Best Director" },
+      { icon: "bafta", label: "BAFTA Awards (2010): Best Production Design and Best Special Visual Effects" },
+      { icon: "saturn", label: "Saturn Awards (2010): 10 wins including Best Science Fiction Film and Best Director" },
+      { icon: "trophy", label: "Critics' Choice Movie Awards (2010): Best Action Movie, Art Direction, Cinematography, Editing, Sound, and Visual Effects" },
+      { icon: "trophy", label: "Empire Awards (2010): Best Film, Best Director, and Best Actress for Zoe Saldaña" },
+      { icon: "trophy", label: "The film earned 91 wins from 131 nominations worldwide" },
+    ],
+    visual: "planet-dome",
+    accent: "rgba(70, 190, 255, 0.68)",
   },
 ];
 
@@ -206,19 +235,19 @@ const aboutSections = [
     body: (
       <>
         The simulation sci-fi genre
-        emerged as a fascinating evolution of the philosophical question: "How do I know what is
-        real?" There have been many thought experiments early on by philosophers such as Plato with
-        Plato's Allegory of the Cave and Descartes' "Evil Demon", which both challenge our trust in
+        emerged as a fascinating evolution of the philosophical question: &quot;How do I know what is
+        real?&quot; There have been many thought experiments early on by philosophers such as Plato with
+        Plato&apos;s Allegory of the Cave and Descartes&apos; &quot;Evil Demon&quot;, which both challenge our trust in
         our sensory experiences. By the mid-20th century, these abstract ideas transitioned in
         literature into more computer-generated cities which laid the groundwork for the 1970s and
         1980s with films like <i>World on a Wire</i> and <i>TRON</i>. These films gave us a
-        visualization of what the "inside" of a machine could look like by imagining the digital
+        visualization of what the &quot;inside&quot; of a machine could look like by imagining the digital
         world as something tangible.
         {" "}
-        In the late 1990s, this genre reached its cultural peak with the "Cyberpunk Explosion" with
+        In the late 1990s, this genre reached its cultural peak with the &quot;Cyberpunk Explosion&quot; with
         films like <i>The Matrix</i> and <i>eXistenZ</i>. It seems that these films reflect a
         pre-millennial fear about the growing dependence of humans on technology and the internet.
-        The genre has now evolved past the trope of being "trapped in a computer" to more organic
+        The genre has now evolved past the trope of being &quot;trapped in a computer&quot; to more organic
         and psychological aspects such as seen in <i>Avatar</i> and <i>Paprika</i> and multilayers
         of reality. But the genre still keeps the same core idea with which it started and continues
         to explore the idea that our entire universe is a coded program.
@@ -233,8 +262,8 @@ const aboutSections = [
       <>
         Recurring visual motifs include mirrors, reflections, and screens to signal instability of
         the perceived world. Stories following this genre frequently follow an arc where the
-        protagonist "wakes up" and becomes disillusioned, discovering hidden layers of reality.
-        Visually, this genre usually employs a gritty monochrome look for the "real" world and a
+        protagonist &quot;wakes up&quot; and becomes disillusioned, discovering hidden layers of reality.
+        Visually, this genre usually employs a gritty monochrome look for the &quot;real&quot; world and a
         saturated, sterile look for the simulation to help the audience navigate the layers of
         reality themselves.
       </>
@@ -247,10 +276,10 @@ const aboutSections = [
     body: (
       <>
         In our digital-first era, simulation sci-fi serves as a cultural mirror against the rapid
-        dilution of our "real" world — a world full of deepfakes, AI-generated content, and
+        dilution of our &quot;real&quot; world, a world full of deepfakes, AI-generated content, and
         immersive technologies. The genre helps us explore our existential fears regarding
         corporate/state surveillance and the idea that our environment is manufactured to shape our
-        perception of truth. It also urges us to "wake up" to the systems that govern our everyday
+        perception of truth. It also urges us to &quot;wake up&quot; to the systems that govern our everyday
         lives and to pay attention to the world around us.
       </>
     ),
@@ -549,7 +578,7 @@ function FilmCard({
             <p className="mt-3 flex min-w-0 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/58 sm:text-base">
               <span>{film.duration}</span>
               <span className="h-1.5 w-1.5 rounded-full bg-white/90" />
-              <span className="truncate">{film.categories.join(", ")}</span>
+              <span>{film.year}</span>
             </p>
           </div>
         </motion.div>
@@ -588,9 +617,9 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
               {film.title}
             </h1>
             <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-lg text-white/58 sm:text-xl">
-              <span>{film.year}</span>
+              <span>{film.duration}</span>
               <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
-              <span>{film.categories.join(", ")}</span>
+              <span>{film.year}</span>
             </p>
           </div>
 
@@ -648,9 +677,13 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
 
           <div>
             <p className="text-sm text-white/60">Country</p>
-            <div className="mt-4 flex items-center gap-4">
-              <span className={`flag flag-${film.flag}`} aria-hidden="true" />
-              <span className="text-lg text-white">{film.country}</span>
+            <div className="country-list mt-4">
+              {film.countries.map((country) => (
+                <div key={country.name} className="country-entry" aria-label={country.name} tabIndex={0}>
+                  <span className={`flag flag-${country.flag}`} aria-hidden="true" />
+                  <span className="country-label">{country.name}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -658,9 +691,12 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
 
           <div>
             <p className="text-sm text-white/60">Awards</p>
-            <div className="mt-5 flex items-end gap-7">
+            <div className="award-list mt-5">
               {film.awards.map((award, index) => (
-                <span key={`${award}-${index}`} className={`award-icon award-${award}`} aria-label={`${award} award`} role="img" />
+                <div key={`${award.label}-${index}`} className="award-entry" aria-label={award.label} tabIndex={0}>
+                  <span className={`award-icon award-${award.icon}`} aria-hidden="true" />
+                  <span className="award-label">{award.label}</span>
+                </div>
               ))}
             </div>
           </div>
