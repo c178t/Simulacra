@@ -203,19 +203,57 @@ const films: Film[] = [
 const aboutSections = [
   {
     title: "Historical Overview",
-    body: "Science fiction has captivated audiences for over a century, evolving from early literary visions of the future to a global cinematic force. From Metropolis to Blade Runner and beyond, sci-fi has continuously reimagined our world and what lies beyond it.",
+    body: (
+      <>
+        The simulation sci-fi genre
+        emerged as a fascinating evolution of the philosophical question: "How do I know what is
+        real?" There have been many thought experiments early on by philosophers such as Plato with
+        Plato's Allegory of the Cave and Descartes' "Evil Demon", which both challenge our trust in
+        our sensory experiences. By the mid-20th century, these abstract ideas transitioned in
+        literature into more computer-generated cities which laid the groundwork for the 1970s and
+        1980s with films like <i>World on a Wire</i> and <i>TRON</i>. These films gave us a
+        visualization of what the "inside" of a machine could look like by imagining the digital
+        world as something tangible.
+        {" "}
+        In the late 1990s, this genre reached its cultural peak with the "Cyberpunk Explosion" with
+        films like <i>The Matrix</i> and <i>eXistenZ</i>. It seems that these films reflect a
+        pre-millennial fear about the growing dependence of humans on technology and the internet.
+        The genre has now evolved past the trope of being "trapped in a computer" to more organic
+        and psychological aspects such as seen in <i>Avatar</i> and <i>Paprika</i> and multilayers
+        of reality. But the genre still keeps the same core idea with which it started and continues
+        to explore the idea that our entire universe is a coded program.
+      </>
+    ),
     visual: "about-city",
     glyph: "timeline",
   },
   {
     title: "Defining Characteristics",
-    body: "Sci-fi explores speculative concepts such as space exploration, artificial intelligence, time travel, alternate realities, and dystopian futures. It blends imaginative storytelling with scientific possibilities to challenge perception and inspire wonder.",
+    body: (
+      <>
+        Recurring visual motifs include mirrors, reflections, and screens to signal instability of
+        the perceived world. Stories following this genre frequently follow an arc where the
+        protagonist "wakes up" and becomes disillusioned, discovering hidden layers of reality.
+        Visually, this genre usually employs a gritty monochrome look for the "real" world and a
+        saturated, sterile look for the simulation to help the audience navigate the layers of
+        reality themselves.
+      </>
+    ),
     visual: "about-cube",
     glyph: "poly",
   },
   {
     title: "Cultural Significance",
-    body: "Science fiction reflects our hopes, fears, and the rapidly changing world around us. It serves as a mirror and a map, questioning our choices today while envisioning the possibilities of tomorrow.",
+    body: (
+      <>
+        In our digital-first era, simulation sci-fi serves as a cultural mirror against the rapid
+        dilution of our "real" world — a world full of deepfakes, AI-generated content, and
+        immersive technologies. The genre helps us explore our existential fears regarding
+        corporate/state surveillance and the idea that our environment is manufactured to shape our
+        perception of truth. It also urges us to "wake up" to the systems that govern our everyday
+        lives and to pay attention to the world around us.
+      </>
+    ),
     visual: "about-dome",
     glyph: "signal",
   },
