@@ -539,10 +539,11 @@ function FilmCard({
       initial={{ opacity: 0, y: 34, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.98 }}
+      whileHover={{ scale: 1.035 }}
       transition={{
         opacity: { duration: 0.55, delay: index * 0.05 },
         y: { duration: 0.9, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] },
-        scale: { duration: 0.9, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] },
+        scale: { duration: 0.14, ease: [0.22, 1, 0.36, 1] },
       }}
       onClick={onSelect}
       onKeyDown={(event) => {

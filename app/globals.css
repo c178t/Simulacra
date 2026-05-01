@@ -67,7 +67,7 @@ button {
 .film-card {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 28px;
   background:
@@ -85,10 +85,76 @@ button {
     background 220ms ease;
 }
 
+.film-card::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: 35px;
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.56), transparent) top / 70% 2px no-repeat,
+    linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.46), transparent) right / 2px 70% no-repeat,
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.36), transparent) bottom / 62% 2px no-repeat,
+    linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.34), transparent) left / 2px 62% no-repeat;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.film-card::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  z-index: -2;
+  border-radius: 42px;
+  background: rgba(255, 255, 255, 0.22);
+  opacity: 0;
+  filter: blur(13px);
+  transition: opacity 160ms ease;
+}
+
+.film-card:hover,
+.film-card:focus-visible {
+  border-color: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+    rgba(8, 12, 12, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.26),
+    0 0 34px rgba(255, 255, 255, 0.26),
+    0 32px 90px rgba(0, 0, 0, 0.5);
+}
+
+.film-card:hover::before,
+.film-card:focus-visible::before {
+  opacity: 0.86;
+  animation: film-card-edge-flow 2.8s ease-in-out infinite;
+}
+
+.film-card:hover::after,
+.film-card:focus-visible::after {
+  opacity: 0.44;
+}
+
 .film-visual-frame {
+  border-radius: 27px 27px 0 0;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     0 18px 42px rgba(0, 0, 0, 0.36);
+}
+
+@keyframes film-card-edge-flow {
+  0% {
+    background-position: -35% top, right -35%, 135% bottom, left 135%;
+  }
+
+  50% {
+    background-position: 135% top, right 135%, -35% bottom, left -35%;
+  }
+
+  100% {
+    background-position: -35% top, right -35%, 135% bottom, left 135%;
+  }
 }
 
 .glass-back-button {
