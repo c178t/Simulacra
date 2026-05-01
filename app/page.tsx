@@ -10,7 +10,7 @@ type Film = {
   year: string;
   duration: string;
   synopsis: string;
-  why: string;
+  why: ReactNode;
   funFacts: string[];
   director: string;
   countries: Array<{ name: string; flag: string }>;
@@ -49,9 +49,9 @@ const films: Film[] = [
     year: "1982",
     duration: "96 min",
     synopsis:
-      "Kevin Flynn is a talented computer programmer and arcade game designer who is digitized and transported inside a computer system. In this electronic world, programs take humanoid forms and compete in combat challenges designed by the controlling Master Control Program. Flynn is mistaken for a program and forced to navigate glowing grids, geometric architecture, and stylized virtual combat. As he moves deeper through the system, the line between user and program becomes less clear.",
+      "Kevin Flynn is a talented computer programmer and arcade game designer that gets digitized and transported inside the mainframe of his former employer by a power-hungry artificial intelligence known as the Master Control Program. In this electronic world, programs take on humanoid forms and compete in combat challenges and high stake games designed by the controlling master program. Flynn gets mistaken for a program as he tries to navigate the digital landscape full of glowing grids and buildings, geometric architecture and is forced to engage in stylized virtual combat. As Flynn moves deeper through the system, the distinction between a user and a program becomes less clear. Flynn must team up with heroic security and utility programs to escape. This film gives the question of what happens when a person enters the machine and has to play by the machines rules.",
     why:
-      "TRON belongs in the festival because it is one of the earliest films to depict a digital simulation as a navigable space. It turns abstract computing processes into something tangible and visual, bridging early conceptual films and later virtual-reality cinema. Its emphasis on structure, rules, and control shaped future screen images of cyberspace.",
+      "This film belongs to the film festival because it is one of the earliest films that visually depict a digital simulation as a navigable space. It turns one of the most abstract things, computing processes, into something tangible for the audience to experience. Simulation becomes literal and not metaphorical, which bridges early conceptual films and later more complex depictions of virtual reality. TRON emphasized structure, rules, and control within a digital system, which reinforces the theme of the festival while contributing pop-art and a distinct aesthetic that shaped future representations of cyber space.",
     funFacts: [
       "The entire film was created using just 2MB of memory and 330MB of storage.",
     ],
@@ -71,9 +71,15 @@ const films: Film[] = [
     year: "1995",
     duration: "82 min",
     synopsis:
-      "In a technologically advanced future, many humans have replaced parts of their bodies with cybernetic implants. Major Motoko Kusanagi is a cyborg security agent pursuing the Puppet Master, a mysterious hacker who can seize control of cybernetic bodies and overwrite memories. As Kusanagi investigates, she questions the boundaries between mind, body, and networked consciousness in a world where identity is no longer tied to one physical form.",
-    why:
-      "This film expands simulation beyond external environments and into identity itself. Rather than building a separate artificial world, it suggests that reality is already mediated through memory, bodies, and networks. Its restrained pacing, Japanese cyberpunk style, and animated form create an essential bridge between virtual-world stories and philosophical questions about consciousness.",
+      "In a technologically advanced future, most humans have replaced parts of their bodies with cybernetic implants. Major Motoko Kusanagi is a cyborg security agent that pursues a mysterious hacker known as the Puppet Master. Puppet master can remotely seize control of people’s cybernetic bodies and overwrite their memories to turn them into puppets. While she hunts, she tries to understand the boundaries between mind, body, and networked consciousness. Kusanagi navigates a world where memories can be altered, bodies can be replaced, and identity is no longer tied to a single physical form. Kusangi starts to question her own existence as she confronts the nature of the entity she pursues. The film includes a visual style that feels both tactical and abstract. The narrative of the film gradually shifts from external pursuit to internal inquiry, exploring what it means to be human in a fully mediated world.",
+    why: (
+      <>
+        This film belongs in the festival because it pushes the concept of simulation beyond external environment and expands it into the structure of identity itself. 
+        Rather than creating a whole separate artificial virtual world, it suggests that reality is already mediated through technology, memory, and networks. This film creates a crucial conceptual bridge linking virtual simulations 
+        with philosophical questions about consciousness. This film also expands the geographic and stylistic conversations by introducing animation and Japanese cyber punk styles. The restrained pacing and visual precision of the 
+        film contrasts effectively with more action-driven entries in this list, while its themes resonate strongly with films like <i>The Matrix</i>.
+      </>
+    ),
     funFacts: [
       "The production team traveled to a facility in Guam to shoot real firearms at different materials so they could accurately animate bullet impacts.",
     ],
@@ -96,9 +102,9 @@ const films: Film[] = [
     year: "1998",
     duration: "103 min",
     synopsis:
-      "Truman Burbank lives a seemingly ordinary life in a picturesque town surrounded by friends, coworkers, and routine. Small inconsistencies gradually disrupt that normalcy, leading him to question his environment. His life is revealed to be a controlled setting designed for constant observation, with hidden systems shaping his experiences and limiting his freedom. As Truman tests the boundaries of his world, the constructed experience begins to break.",
+      "Truman Burbank is just a normal guy who lives a seemingly ordinary life in a picturesque town, surrounded by friends, coworkers, and a good routine. Slowly, small inconsistencies start to build up, disrupting the normalcy, leading him to start to question his environment. His entire life unfolds to be within a controlled setting that was designed for constant observation. The world around him operates with hidden systems designed to shape his experiences and limit his freedom. As Truman discovers this, he starts to test the boundaries of his reality. Imagine living a constructed experience that is meant as a spectacle for others to observe you and control you subtly.",
     why:
-      "The Truman Show makes simulation science fiction accessible without relying on futuristic machinery. It shows that simulation can emerge from surveillance, media construction, performance, and social control. Its emotional grounding balances the more abstract films in the lineup and shows how a simulated reality can operate inside an everyday setting.",
+      "This film belongs in the festival because it makes the genre of simulation sci-fi accessible to a mass-audience. It shows that simulation does not always require advanced technology and can emerge from control, observation, and performance. This is a perspective that broadens the festival’s definition of simulation sci-fi by connecting it to surveillance culture and media construction. Its recognizable setting and emotional grounding helps it balance the other more abstract films in the lineup. This film also allows for the demonstration of how a simulation could operate in everyday contexts and not just futuristic “cyberpunk” like one by focusing on a lived experience in a controlled environment. ",
     funFacts: [
       "Jim Carrey took a significant pay cut to play Truman, accepting $12 million instead of his then-standard $20 million to prove he could handle dramatic roles.",
     ],
@@ -123,9 +129,9 @@ const films: Film[] = [
     year: "1999",
     duration: "136 min",
     synopsis:
-      "Neo is a programmer who discovers that the world he inhabits is a sophisticated simulation created and maintained by machines. Humanity has lost a war against artificial intelligence and has become enslaved. Neo encounters people who know the illusion exists and joins an underground rebellion against the machines. Moving between the simulated environment and the reality outside it, he learns how perception can be controlled and how the system's enforcers can be fought.",
+      "Neo is a programmer that discovers that the world he inhabits is not real but a sophisticated simulation that is created and maintained by machines. Humanity has lost a war against artificial intelligence and have become enslaved. Neo discovers that there are people that know about this illusion in his world and how there is a conflict between those who want to accept the illusion and those that want to break free from it. The film moves between the simulated environment and the reality outside it, exploring how perception can be controlled and manipulated. The Matrix combines action cinema with philosophical unease. As neo joins the underground rebellion of those who want to break free from the illusion, he must understand how to fight the machines enforcers.",
     why:
-      "The Matrix is the most widely recognized simulation science-fiction film of the modern era. It sits between blockbuster spectacle and conceptual sci-fi, making it ideal for a program that values accessibility and intellectual force. Earlier films in the lineup build toward it, while later films respond to its core question: how is reality constructed?",
+      "This film should be in the festival because it is the most widely recognized simulation sci-fi film of the modern era. This film sits at the intersection of a blockbuster spectacle and a conceptual sci-fi, which make it ideal as a program that wants both accessibility and intellectual rigor. It helps to also unify the rest of the lineup where the earlier films build towards it and later films respond to it. The rest of the festival can be read as variations on its core question of how reality is constructed.",
     funFacts: [
       "The iconic green digital rain was created by production designer Simon Whiteley using characters scanned from his wife's Japanese cookbooks.",
     ],
@@ -152,9 +158,12 @@ const films: Film[] = [
     year: "1999",
     duration: "97 min",
     synopsis:
-      "Allegra Geller is the world's most celebrated game designer, attacked by an assassin who believes virtual reality is deforming human existence. In this world, technology is organic and invasive: gamers use flesh-like game pods that connect directly to their nervous systems. Bodyguard Ted Pikul helps Allegra escape, and the two enter the game to determine whether her master pod was damaged. As they descend through layers of simulation, the boundary between physical reality and game reality dissolves.",
-    why:
-      "eXistenZ complicates the simulation theme through a visceral and grotesque lens. Released the same year as The Matrix, it focuses less on sleek digital control and more on the intersection of biology, technology, desire, and trust. Its nested layers of reality broaden the lineup and keep simulation from feeling repetitive.",
+      "Allegra Geller is the world’s most celebrated game designer who is attacked by a assassin who believes virtual reality is deforming human existence. In this world, technology is organic and invasive. Gamers use “game pods” which are flesh, organ-like devices that connect directly to their nervous systems. This creates an intimate relationship between the user and the system. Ted Pikul is a body guard for Allegra and helps her escape the assassin. As Allegra and Ted enter the game to determine if her master game pod was damaged in an attack, they descend through layers of simulation and the boundaries between the real physical world and the game begin to dissolve. ",
+    why: (
+      <>
+      This film belongs in the film festival because it complicates and tackles the simulation theme in a way that the other titles in the festival don’t. It tackles the philosophical questions of reality through a unique, visceral, and grotesque lens. This film was released in te same year as <i>The Matrix</i> but focuses more on the intersection of biology and technology. The film shows more how simulation changes the body, desire, and trust itself. This film also seems to foresee the many concerts of artificial intelligence, augmented reality, and psychological impact of immersive gaming. It also strengthens the lineup by not keeping the simulation theme feel repetitive and focuses on nested layers of reality, like <i>Inception</i>. 
+      </>
+    ),
     funFacts: [
       "The film did poorly at the box office but later developed a cult following, and contemporary writing often treats it as an overlooked classic of body-horror virtual reality.",
     ],
@@ -179,9 +188,9 @@ const films: Film[] = [
     year: "2006",
     duration: "90 min",
     synopsis:
-      "Scientists have developed the DC Mini, a device that allows therapists to enter and record patients' dreams. Dr. Atsuko Chiba secretly uses it as Paprika, a charismatic dream detective who provides therapy inside dreams. When the device is stolen before it can be regulated, it is used to invade minds while people are awake, forcing them into waking nightmares. The boundary between dreams and reality begins to dissolve and reshape the real world.",
+      "Scientists have developed a device known as the “DC mini” which allows therapists to enter and record their patients’ dreams better to understand their subconscious. Dr. Atsuko Chiba is a researcher that lives a double life. She illegally uses the device to enter patients’ dreams under the guise of her alter ego “Parprika”, who is a charismatic “dream detective” that provides therapy. Unfortunately the device gets stolen before it is officially regulated, and gets abused by a thief to invade the minds of people while they are awake, forcing them into a nightmare. The boundary between dreams and reality begins to dissolve and start to influence the real world.",
     why:
-      "Paprika pushes simulation science fiction into dreams rather than computer-generated space. It explores nested realities, false awakenings, and a shared simulation fueled by imagination and madness. Its animated form adds visual diversity while keeping the festival focused on mediated reality and unstable perception.",
+      "This film belongs in this film festival because it pushes simulation sci-fi into the realm of dreams rather than a computer generated environment. The film also plays with the idea of layered realities through nested dreams where characters experience false awakenings, which also makes the audience question even more which level of the story is the “real world”. This film also explores a new idea of shared simulation where the simulation is fueled by the combination of the imagination and madness of every human mind connected. This film also adds visual diversity through its animated form.",
     funFacts: [
       "Despite being a high-tech 2006 film, Susumu Hirasawa composed and sequenced the score using an Amiga 4000 computer.",
     ],
@@ -203,9 +212,9 @@ const films: Film[] = [
     year: "2009",
     duration: "162 min",
     synopsis:
-      "Humans explore Pandora, a lush and dangerous alien moon filled with bioluminescent flora, massive predators, and the Na'vi. They travel there to mine the valuable mineral unobtanium, but Pandora's atmosphere is toxic to humans. To survive and interact with the world, humans remotely control artificially created human-Na'vi hybrid bodies. As characters spend more time inside these avatar bodies, their sense of identity begins to shift.",
+      "Humans explore a lush alien moon called Pandora. Pandora is an extremely beautiful but just as dangerous environment that is filled with bioluminescent flora and massive predators. There are natural inhabitants that are called Na’vi. Humans traveled there to obtain and mine a rare valuable mineral called “Unobtanium” to solve Earth’s energy crisis. Due to the toxic atmosphere for humans, they are forced to use artificially created human Na’vi hybrids, through which humans can control them by putting their minds directly into the Na’vi hybrid bodies. Through this system, the humans can experience another world while being physically separate from it. As the characters spend more time in these hybrid bodies, their sense of identity begins to shift. ",
     why:
-      "Avatar broadens simulation science fiction beyond screens and virtual worlds into bodily mediation. Its avatar system creates a biological simulation of alien experience, making simulation physical, sensory, and emotional. By emphasizing the connection between identity and physical form, it complements films that focus on perception, consciousness, and constructed reality.",
+      "This film belongs in this festival because it broadens simulation sci-fi beyond screens and virtual worlds into bodily mediation. It explores the mental transfer of consciousness into a surrogate body, which is sort of like a “biological simulation” of an alien experience. It makes simulation a physical and sensory phenomenon. This film broadens the festival’s thematic range while remaining focused on mediated reality. By emphasizing the connection between identity and physical form, it complements other entries that focus on perception and consciousness. One major theme in simulation is the perfection of experience, which through an Avatar body one could fully experience.",
     funFacts: [
       "Sam Worthington was living in his car when he auditioned for Jake Sully.",
       "Matt Damon was offered the role along with 10% of the profits, a decision later estimated to have cost him more than $600 million.",
