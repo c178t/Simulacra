@@ -298,6 +298,11 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const showFilm = (film: Film) => {
+  setSelectedFilm(film);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
   const showIntroduction = () => {
     setView("introduction");
     setSelectedFilm(null);
@@ -405,7 +410,10 @@ export default function Home() {
                       key={film.title}
                       film={film}
                       index={index}
-                      onSelect={() => setSelectedFilm(film)}
+                      onSelect={() => {
+                        setSelectedFilm(film);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
                     />
                   ))}
                 </AnimatePresence>
