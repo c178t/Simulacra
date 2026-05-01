@@ -777,6 +777,8 @@ button {
 
 .film-detail-hero {
   position: relative;
+  display: block;
+  width: 100%;
   aspect-ratio: 21 / 7.4;
   min-height: 280px;
   overflow: hidden;
@@ -785,6 +787,26 @@ button {
   background: rgba(255, 255, 255, 0.04);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 26px 90px rgba(0, 0, 0, 0.44);
+}
+
+.image-zoom-trigger {
+  appearance: none;
+  padding: 0;
+  text-align: inherit;
+  outline: none;
+  transform-origin: center;
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.image-zoom-trigger:hover,
+.image-zoom-trigger:focus-visible {
+  transform: scale(1.035);
+}
+
+.image-zoom-trigger:focus-visible {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.7),
     0 26px 90px rgba(0, 0, 0, 0.44);
 }
 
@@ -820,8 +842,12 @@ button {
 
 .director-portrait {
   position: relative;
+  display: block;
+  width: 100%;
   aspect-ratio: 1.08;
   overflow: hidden;
+  padding: 0;
+  border: 0;
   border-radius: 18px;
   background:
     radial-gradient(circle at 54% 42%, rgba(255, 255, 255, 0.18), transparent 30%),
@@ -836,6 +862,51 @@ button {
     radial-gradient(circle at 62% 42%, transparent 0 25%, rgba(255, 255, 255, 0.95) 25.5% 27%, transparent 27.5%),
     linear-gradient(to top, rgba(0, 0, 0, 0.46), transparent 60%);
   opacity: 0.82;
+}
+
+.director-portrait.image-zoom-trigger:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(0, 0, 0, 0.86);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.image-lightbox-image {
+  max-width: min(100%, 1440px);
+  max-height: min(100%, 86vh);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  object-fit: contain;
+  box-shadow: 0 36px 120px rgba(0, 0, 0, 0.72);
+}
+
+.image-lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 81;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05)),
+    rgba(8, 12, 12, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 18px 44px rgba(0, 0, 0, 0.4);
 }
 
 .director-halo {

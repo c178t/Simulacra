@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 type Film = {
@@ -588,6 +588,16 @@ function FilmCard({
 }
 
 function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
+  const heroImage = {
+    src: `/assets/films/${film.slug}/hero.jpg`,
+    alt: `${film.title} still`,
+  };
+  const directorImage = {
+    src: `/assets/films/${film.slug}/director.jpg`,
+    alt: `${film.director}, director of ${film.title}`,
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -602,15 +612,20 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] xl:gap-11">
         <div className="min-w-0">
-          <div className="film-detail-hero">
+          <button
+            className="film-detail-hero image-zoom-trigger"
+            type="button"
+            onClick={() => setLightboxImage(heroImage)}
+            aria-label={`View full image for ${film.title}`}
+          >
             <AssetImage
-              src={`/assets/films/${film.slug}/hero.jpg`}
-              alt={`${film.title} still`}
+              src={heroImage.src}
+              alt={heroImage.alt}
               className="asset-fill"
               fallback={<PlaceholderVisual film={film} />}
             />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.18),transparent_28%),linear-gradient(to_top,rgba(1,3,3,0.64),transparent_48%)]" />
-          </div>
+          </button>
 
           <div className="mt-8">
             <h1 className="text-[clamp(3.4rem,7vw,6.6rem)] font-medium leading-none tracking-normal text-white">
@@ -653,10 +668,15 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
         </div>
 
         <aside className="film-info-panel">
-          <div className="director-portrait">
+          <button
+            className="director-portrait image-zoom-trigger"
+            type="button"
+            onClick={() => setLightboxImage(directorImage)}
+            aria-label={`View full image of ${film.director}`}
+          >
             <AssetImage
-              src={`/assets/films/${film.slug}/director.jpg`}
-              alt={`${film.director}, director of ${film.title}`}
+              src={directorImage.src}
+              alt={directorImage.alt}
               className="asset-fill"
               fallback={
                 <>
@@ -666,7 +686,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
                 </>
               }
             />
-          </div>
+          </button>
 
           <div className="mt-6">
             <p className="text-sm text-white/60">Director</p>
@@ -702,6 +722,41 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           </div>
         </aside>
       </div>
+
+      <AnimatePresence>
+        {lightboxImage ? (
+          <motion.div
+            className="image-lightbox"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={lightboxImage.alt}
+            onClick={() => setLightboxImage(null)}
+          >
+            <button
+              className="image-lightbox-close"
+              type="button"
+              onClick={() => setLightboxImage(null)}
+              aria-label="Close full image"
+            >
+              <X className="h-5 w-5" strokeWidth={2} />
+            </button>
+            <motion.img
+              src={lightboxImage.src}
+              alt={lightboxImage.alt}
+              className="image-lightbox-image"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </motion.div>
   );
 }
