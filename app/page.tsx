@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, X } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 type Film = {
   slug: string;
@@ -303,19 +303,29 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#030505] text-white">
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_22%,rgba(174,220,211,0.20),transparent_30%),radial-gradient(circle_at_16%_84%,rgba(75,148,134,0.16),transparent_34%),linear-gradient(115deg,#020303_0%,#050908_48%,#101a18_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:120px_120px] opacity-[0.08]" />
-        <div className="star-field absolute inset-0 opacity-70" />
-        <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black to-transparent" />
+    <main className="relative min-h-screen overflow-hidden bg-[#030505] text-white">
+      <div className={`site-background pointer-events-none fixed inset-0 z-0 ${selectedFilm ? "site-background-film" : ""}`}>
+        <div className="site-atmosphere" />
+        <div className="site-network" aria-hidden="true">
+          <span className="network-line network-line-left" />
+          <span className="network-line network-line-right" />
+          <span className="network-node network-node-left-top" />
+          <span className="network-node network-node-left-mid" />
+          <span className="network-node network-node-right-top" />
+          <span className="network-node network-node-right-mid" />
+          <span className="network-drop network-drop-one" />
+          <span className="network-drop network-drop-two" />
+          <span className="network-drop network-drop-three" />
+        </div>
+        <div className="star-field" />
+        <div className="site-vignette" />
       </div>
 
       <motion.header
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-5 py-4 sm:px-9 lg:px-12"
+        className="relative z-10 mx-auto flex w-full max-w-[1500px] items-center justify-between px-5 py-4 sm:px-9 lg:px-12"
       >
         <button className="group min-w-0" type="button" onClick={showFilms} aria-label="Simulacra Film Festival">
           <SimulacraLogo variant="header" />
@@ -347,7 +357,7 @@ export default function Home() {
         </nav>
       </motion.header>
 
-      <section id={view} className="mx-auto w-full max-w-[1500px] px-5 pb-12 pt-10 sm:px-9 sm:pt-16 lg:px-12">
+      <section id={view} className="relative z-10 mx-auto w-full max-w-[1500px] px-5 pb-12 pt-10 sm:px-9 sm:pt-16 lg:px-12">
         <AnimatePresence mode="wait">
           {selectedFilm ? (
             <FilmDetail
@@ -590,6 +600,21 @@ function FilmCard({
 
 function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
+  const [sampledAccent, setSampledAccent] = useState(film.accent);
+  const flares = useMemo(
+    () =>
+      Array.from({ length: 5 }, (_, index) => ({
+        id: `${film.slug}-flare-${index}`,
+        x: -14 + Math.random() * 128,
+        y: -10 + Math.random() * 82,
+        width: 32 + Math.random() * 36,
+        height: 22 + Math.random() * 32,
+        opacity: 0.28 + Math.random() * 0.34,
+        delay: -Math.random() * 8,
+        duration: 11 + Math.random() * 8,
+      })),
+    [film.slug],
+  );
   const heroImage = {
     src: `/assets/films/${film.slug}/hero.jpg`,
     alt: `${film.title} still`,
@@ -599,13 +624,103 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
     alt: `${film.director}, director of ${film.title}`,
   };
 
+  useEffect(() => {
+    let isMounted = true;
+    const image = new Image();
+
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      const size = 48;
+      canvas.width = size;
+      canvas.height = size;
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+
+      if (!context) {
+        return;
+      }
+
+      context.drawImage(image, 0, 0, size, size);
+      const pixels = context.getImageData(0, 0, size, size).data;
+      let bestColor = { r: 190, g: 235, b: 225 };
+      let bestScore = 0;
+
+      for (let index = 0; index < pixels.length; index += 16) {
+        const r = pixels[index];
+        const g = pixels[index + 1];
+        const b = pixels[index + 2];
+        const a = pixels[index + 3];
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const brightness = max / 255;
+        const saturation = max === 0 ? 0 : (max - min) / max;
+
+        if (a < 200 || brightness < 0.18 || brightness > 0.94 || saturation < 0.12) {
+          continue;
+        }
+
+        const score = saturation * 1.35 + brightness * 0.55;
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestColor = { r, g, b };
+        }
+      }
+
+      if (isMounted && bestScore > 0) {
+        setSampledAccent(`rgb(${bestColor.r}, ${bestColor.g}, ${bestColor.b})`);
+      }
+    };
+
+    image.onerror = () => {
+      if (isMounted) {
+        setSampledAccent(film.accent);
+      }
+    };
+
+    setSampledAccent(film.accent);
+    image.src = heroImage.src;
+
+    return () => {
+      isMounted = false;
+    };
+  }, [film.accent, heroImage.src]);
+
   return (
     <motion.div
+      className="film-detail-stage"
+      style={{ "--film-accent": sampledAccent } as React.CSSProperties}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 18 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
+      <motion.div
+        className="film-detail-flares"
+        aria-hidden="true"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.94 }}
+        transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {flares.map((flare) => (
+          <span
+            key={flare.id}
+            className="film-flare"
+            style={
+              {
+                "--flare-x": `${flare.x}%`,
+                "--flare-y": `${flare.y}%`,
+                "--flare-width": `${flare.width}vw`,
+                "--flare-height": `${flare.height}vw`,
+                "--flare-opacity": flare.opacity,
+                "--flare-delay": `${flare.delay}s`,
+                "--flare-duration": `${flare.duration}s`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </motion.div>
+
       <button className="glass-back-button" type="button" onClick={onBack}>
         <ArrowLeft className="h-4 w-4" strokeWidth={2} />
         <span>Back to Films</span>
@@ -668,7 +783,13 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           </section>
         </div>
 
-        <aside className="film-info-panel">
+        <motion.aside
+          className="film-info-panel"
+          initial={{ opacity: 0, x: 56 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 32 }}
+          transition={{ duration: 0.62, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+        >
           <button
             className="director-portrait image-zoom-trigger"
             type="button"
@@ -721,7 +842,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
               ))}
             </div>
           </div>
-        </aside>
+        </motion.aside>
       </div>
 
       <AnimatePresence>

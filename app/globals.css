@@ -31,6 +31,177 @@ button {
   cursor: pointer;
 }
 
+.site-atmosphere,
+.site-network,
+.site-vignette,
+.star-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.site-atmosphere {
+  background:
+    linear-gradient(115deg, #000 0%, #030404 38%, #080e0d 67%, #101916 100%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 58%);
+}
+
+.site-network {
+  opacity: 0.42;
+}
+
+.network-line,
+.network-node,
+.network-drop {
+  position: absolute;
+  display: block;
+}
+
+.network-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(222, 240, 234, 0.26), transparent);
+}
+
+.network-line::before,
+.network-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 140px;
+  height: 70px;
+  border-top: 1px solid rgba(222, 240, 234, 0.16);
+}
+
+.network-line-left {
+  left: -2%;
+  top: 23%;
+  width: 30%;
+}
+
+.network-line-left::after {
+  right: -118px;
+  border-right: 1px solid rgba(222, 240, 234, 0.12);
+  border-radius: 0 44px 0 0;
+  transform: translateY(-69px) skewX(-16deg);
+}
+
+.network-line-right {
+  right: -2%;
+  top: 68%;
+  width: 29%;
+}
+
+.network-line-right::before {
+  left: -118px;
+  border-left: 1px solid rgba(222, 240, 234, 0.12);
+  border-radius: 44px 0 0 0;
+  transform: translateY(-69px) skewX(16deg);
+}
+
+.network-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(235, 247, 241, 0.74);
+  box-shadow: 0 0 24px rgba(235, 247, 241, 0.42);
+  animation: node-breathe 9s ease-in-out infinite;
+}
+
+.network-node-left-top {
+  left: 10%;
+  top: 25%;
+}
+
+.network-node-left-mid {
+  left: 7%;
+  top: 62%;
+}
+
+.network-node-right-top {
+  right: 15%;
+  top: 27%;
+}
+
+.network-node-right-mid {
+  right: 8%;
+  top: 67%;
+}
+
+.network-drop {
+  top: 30%;
+  width: 1px;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, rgba(222, 240, 234, 0.2), transparent);
+}
+
+.network-drop::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 54%;
+  width: 3px;
+  height: 92px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(224, 249, 238, 0.82), transparent);
+  animation: light-rain 7s ease-in-out infinite;
+}
+
+.network-drop-one {
+  left: 45%;
+}
+
+.network-drop-two {
+  left: 50%;
+  opacity: 0.74;
+}
+
+.network-drop-two::after {
+  animation-delay: -2.2s;
+}
+
+.network-drop-three {
+  left: 55%;
+  opacity: 0.54;
+}
+
+.network-drop-three::after {
+  animation-delay: -4.4s;
+}
+
+.site-vignette {
+  background:
+    radial-gradient(circle at 50% 45%, transparent 0 44%, rgba(0, 0, 0, 0.28) 72%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 18%, transparent 74%, rgba(0, 0, 0, 0.78));
+}
+
+@keyframes node-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes light-rain {
+  0%,
+  100% {
+    transform: translateY(-36px);
+    opacity: 0;
+  }
+
+  35%,
+  62% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(84px);
+  }
+}
+
 .glass-pill,
 .glass-control,
 .glass-button {
@@ -841,6 +1012,59 @@ button {
   transform: rotate(45deg);
 }
 
+.film-detail-stage {
+  position: relative;
+  isolation: isolate;
+}
+
+.film-detail-stage > :not(.film-detail-flares) {
+  position: relative;
+  z-index: 2;
+}
+
+.film-detail-flares {
+  position: absolute;
+  inset: -28vh -28vw auto -28vw;
+  z-index: 1;
+  height: min(1180px, 120vh);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.film-flare {
+  position: absolute;
+  display: block;
+  left: var(--flare-x);
+  top: var(--flare-y);
+  width: max(360px, var(--flare-width));
+  height: max(260px, var(--flare-height));
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--film-accent) 92%, white 8%) 0%,
+      color-mix(in srgb, var(--film-accent) 72%, transparent) 32%,
+      color-mix(in srgb, var(--film-accent) 26%, transparent) 54%,
+      transparent 76%
+    );
+  filter: blur(46px) saturate(190%);
+  mix-blend-mode: screen;
+  opacity: var(--flare-opacity);
+  will-change: transform, opacity;
+  animation: film-flare-float var(--flare-duration) ease-in-out var(--flare-delay) infinite;
+}
+
+@keyframes film-flare-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.96) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(5%, -4%, 0) scale(1.08) rotate(4deg);
+  }
+}
+
 .film-detail-hero {
   position: relative;
   display: block;
@@ -1462,12 +1686,13 @@ button {
 }
 
 .star-field {
+  opacity: 0.28;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(171, 223, 216, 0.5) 0 1px, transparent 1.4px);
+    radial-gradient(circle, rgba(255, 255, 255, 0.62) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgba(196, 224, 216, 0.42) 0 1px, transparent 1.3px);
   background-position: 0 0, 54px 86px;
-  background-size: 160px 160px, 220px 220px;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
+  background-size: 180px 180px, 260px 260px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 82%, transparent 100%);
 }
 
 .placeholder-visual {
