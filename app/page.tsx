@@ -290,7 +290,7 @@ const aboutSections = [
 
 export default function Home() {
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
-  const [view, setView] = useState<"about" | "films">("films");
+  const [view, setView] = useState<"about" | "films">("about");
 
   const showFilms = () => {
     setView("films");

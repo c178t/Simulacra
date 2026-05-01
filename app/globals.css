@@ -1017,7 +1017,7 @@ button {
   isolation: isolate;
 }
 
-.film-detail-stage > :not(.film-detail-flares) {
+.film-detail-stage > :not(.film-detail-flares):not(.image-lightbox) {
   position: relative;
   z-index: 2;
 }
