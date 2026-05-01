@@ -229,7 +229,7 @@ const films: Film[] = [
   },
 ];
 
-const aboutSections = [
+const introSections = [
   {
     title: "Historical Overview",
     body: (
@@ -290,16 +290,18 @@ const aboutSections = [
 
 export default function Home() {
   const [selectedFilm, setSelectedFilm] = useState<Film | null>(null);
-  const [view, setView] = useState<"about" | "films">("about");
+  const [view, setView] = useState<"introduction" | "films">("introduction");
 
   const showFilms = () => {
     setView("films");
     setSelectedFilm(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const showAbout = () => {
-    setView("about");
+  const showIntroduction = () => {
+    setView("introduction");
     setSelectedFilm(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -334,14 +336,14 @@ export default function Home() {
         <nav className="glass-pill absolute left-1/2 top-4 flex -translate-x-1/2 items-center gap-1 p-1">
           <button
             className={`rounded-full px-7 py-3 text-sm font-medium transition hover:text-white ${
-              view === "about" && !selectedFilm
+              view === "introduction" && !selectedFilm
                 ? "bg-white/[0.08] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.14)]"
                 : "text-white/86"
             }`}
             type="button"
-            onClick={showAbout}
+            onClick={showIntroduction}
           >
-            About
+            Introduction
           </button>
           <button
             className={`rounded-full px-8 py-3 text-sm font-medium transition hover:text-white ${
@@ -367,8 +369,8 @@ export default function Home() {
                 setSelectedFilm(null);
               }}
             />
-          ) : view === "about" ? (
-            <AboutScreen key="about" />
+          ) : view === "introduction" ? (
+            <IntroductionScreen key="introduction" onGoToFilms={showFilms} />
           ) : (
             <motion.div
               key="films-list"
@@ -416,7 +418,7 @@ export default function Home() {
   );
 }
 
-function AboutScreen() {
+function IntroductionScreen({ onGoToFilms }: { onGoToFilms: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -425,28 +427,15 @@ function AboutScreen() {
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       className="about-screen"
     >
-      <section className="about-hero">
-        <div className="about-hero-copy">
-          <h1>About</h1>
-          <p>
-            Simulacra Film Festival celebrates the boundless imagination of sci-fi cinema, where technology meets humanity and the future mirrors our present.
-          </p>
-        </div>
-        <div className="about-portal-scene" aria-hidden="true">
-          <div className="about-portal-ring" />
-          <div className="about-portal-figure" />
-        </div>
-      </section>
-
       <section className="about-logo-stage" aria-label="Simulacra Film Festival">
         <SimulacraLogo variant="about" />
         <p className="about-logo-copy">
-          A festival dedicated to science fiction in all its forms, exploring distant worlds, advanced technologies, and the timeless questions of what it means to be human.
+          A festival dedicated to simulation science fiction in all its forms, exploring distant worlds, advanced technologies, and the timeless question of whether our reality is real.
         </p>
       </section>
 
       <section className="about-section-list" aria-label="About science fiction">
-        {aboutSections.map((section, index) => (
+        {introSections.map((section, index) => (
           <motion.article
             key={section.title}
             initial={{ opacity: 0, y: 24 }}
@@ -467,12 +456,20 @@ function AboutScreen() {
         ))}
       </section>
 
-      <p className="about-closing">
-        Simulacra Film Festival is more than a celebration of films. It is a portal to infinite worlds of thought, imagination, and discovery.
-      </p>
       <div className="about-finale-mark" aria-hidden="true">
         <span />
       </div>
+
+      <motion.button
+        className="go-films-button"
+        type="button"
+        onClick={onGoToFilms}
+        whileHover={{ scale: 1.015 }}
+        whileFocus={{ scale: 1.015 }}
+        transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
+      >
+        Go to Films
+      </motion.button>
     </motion.div>
   );
 }
